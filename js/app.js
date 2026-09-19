@@ -5,6 +5,8 @@
     loopPlaylist: false,
     defaultVolume: 0.75,
     noteIntervalMs: 1250,
+    fadeInMs: 700,
+    fadeOutMs: 450,
   };
 
   const state = {
@@ -13,6 +15,7 @@
     isPlaying: false,
     noteTimer: null,
     toastTimer: null,
+    fadeTimer: null,
     volume: PLAYER_CONFIG.defaultVolume,
     volumeDrag: null,
   };
@@ -175,6 +178,28 @@
     }
   }
 
+  function fadeAudio(target, duration, onDone) {
+    window.clearInterval(state.fadeTimer);
+    state.fadeTimer = null;
+    const start = els.audio.volume;
+    if (duration <= 0 || Math.abs(target - start) < 0.01) {
+      els.audio.volume = Math.max(0, Math.min(1, target));
+      onDone?.();
+      return;
+    }
+    const startTime = performance.now();
+    state.fadeTimer = window.setInterval(() => {
+      const t = Math.min(1, (performance.now() - startTime) / duration);
+      const eased = t * (2 - t);
+      els.audio.volume = Math.max(0, Math.min(1, start + (target - start) * eased));
+      if (t >= 1) {
+        window.clearInterval(state.fadeTimer);
+        state.fadeTimer = null;
+        onDone?.();
+      }
+    }, 40);
+  }
+
   async function playCurrentTrack() {
     if (state.currentIndex < 0 && state.playlist.length) {
       selectTrack(0, false);
@@ -185,10 +210,13 @@
     }
 
     try {
+      els.audio.volume = 0;
       await els.audio.play();
       setPlayingUI(true);
       setStatus(`PLAYING · ${state.playlist[state.currentIndex].title}`, 'playing');
+      fadeAudio(state.volume, PLAYER_CONFIG.fadeInMs);
     } catch (error) {
+      els.audio.volume = state.volume;
       setPlayingUI(false);
       if (error && error.name === 'NotSupportedError') {
         showToast('当前浏览器不支持该音频格式');
@@ -201,7 +229,10 @@
   }
 
   function pauseCurrentTrack() {
-    els.audio.pause();
+    fadeAudio(0, PLAYER_CONFIG.fadeOutMs, () => {
+      els.audio.pause();
+      els.audio.volume = state.volume;
+    });
     setPlayingUI(false);
     if (state.currentIndex >= 0) {
       setStatus(`PAUSED · ${state.playlist[state.currentIndex].title}`, 'paused');
@@ -241,6 +272,7 @@
 
   function handleEnded() {
     setPlayingUI(false);
+    els.audio.volume = state.volume;
     if (!state.playlist.length) return;
 
     const isLast = state.currentIndex >= state.playlist.length - 1;
@@ -258,6 +290,11 @@
     els.progressRange.value = String(Math.min(100, Math.max(0, ratio)));
     els.currentTime.textContent = formatTime(els.audio.currentTime);
     els.durationTime.textContent = formatTime(duration);
+
+    const remaining = duration - els.audio.currentTime;
+    if (state.isPlaying && !state.fadeTimer && els.audio.volume > 0.02 && remaining > 0 && remaining < 0.8) {
+      fadeAudio(0, Math.max(280, remaining * 900));
+    }
   }
 
   function seekAudio() {
