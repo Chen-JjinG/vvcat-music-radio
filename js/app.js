@@ -41,8 +41,13 @@
     statusLed: document.getElementById('statusLed'),
     statusText: document.getElementById('statusText'),
     catCompanion: document.getElementById('catCompanion'),
+    catFigure: document.querySelector('.cat-figure'),
     catImage: document.getElementById('catImage'),
+    catHint: document.getElementById('catHint'),
     noteCloud: document.getElementById('noteCloud'),
+    introModal: document.getElementById('introModal'),
+    introScrim: document.getElementById('introScrim'),
+    introClose: document.getElementById('introClose'),
     toast: document.getElementById('toast'),
   };
 
@@ -502,9 +507,35 @@
     } catch { /* 忽略损坏的存储数据 */ }
   }
 
+  function openIntro() {
+    if (!els.introModal) return;
+    els.introModal.classList.add('open');
+    els.introModal.setAttribute('aria-hidden', 'false');
+    window.setTimeout(() => els.introClose?.focus({ preventScroll: true }), 60);
+  }
+
+  function closeIntro() {
+    if (!els.introModal) return;
+    els.introModal.classList.remove('open');
+    els.introModal.setAttribute('aria-hidden', 'true');
+  }
+
+  function bindIntroModal() {
+    if (!els.introModal) return;
+    els.introClose?.addEventListener('click', closeIntro);
+    els.introScrim?.addEventListener('click', closeIntro);
+    els.catHint?.addEventListener('click', openIntro);
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && els.introModal.classList.contains('open')) {
+        closeIntro();
+      }
+    });
+  }
+
   function bindCatDrag() {
     const img = els.catImage;
-    if (!img) return;
+    const figure = els.catFigure;
+    if (!img || !figure) return;
     let drag = null;
 
     img.addEventListener('pointerdown', (event) => {
@@ -516,7 +547,7 @@
         baseTop: rect.top,
       };
       try { img.setPointerCapture?.(event.pointerId); } catch { /* 指针可能已失效 */ }
-      img.classList.add('is-dragging');
+      figure.classList.add('is-dragging');
       event.preventDefault();
     });
 
@@ -524,6 +555,7 @@
 
     img.addEventListener('pointermove', (event) => {
       if (!drag) return;
+      drag.moved = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY);
       setCatPosition(
         drag.baseLeft + event.clientX - drag.startX,
         drag.baseTop + event.clientY - drag.startY,
@@ -531,12 +563,14 @@
       );
     });
 
-    const finishDrag = () => {
+    const finishDrag = (event) => {
       if (!drag) return;
+      const isTap = (drag.moved ?? 0) < 6 && event.type === 'pointerup';
       drag = null;
-      img.classList.remove('is-dragging');
+      figure.classList.remove('is-dragging');
       const rect = els.catCompanion.getBoundingClientRect();
       setCatPosition(rect.left, rect.top, true);
+      if (isTap) openIntro();
     };
     img.addEventListener('pointerup', finishDrag);
     img.addEventListener('pointercancel', finishDrag);
@@ -563,6 +597,7 @@
     renderPlaylist();
     bindEvents();
     bindHeaderCollapse();
+    bindIntroModal();
     restoreCatPosition();
     bindCatDrag();
     loadPlaylist();

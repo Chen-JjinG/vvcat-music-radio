@@ -19,7 +19,7 @@
         </a>
         <div class="header-copy" aria-hidden="true">
           <span class="header-kicker">猫队的收音机</span>
-          <span class="header-sub">vvcat の little radio</span>
+          <span class="header-sub">vvcatのradio</span>
         </div>
       </div>
     </header>
@@ -133,7 +133,14 @@
     <aside class="cat-companion" id="catCompanion" aria-label="音乐陪伴小猫">
       <div class="note-cloud" id="noteCloud" aria-hidden="true"></div>
       <div class="cat-bubble" id="catBubble">LISTENING...</div>
-      <img id="catImage" src="assets/cat/cat.png" alt="卡通小猫" draggable="false" />
+      <button class="cat-hint" id="catHint" type="button">点击了解我</button>
+      <div class="cat-figure">
+        <svg class="cat-tail" viewBox="0 0 160 120" aria-hidden="true">
+          <path d="M 10 86 C 26 102, 56 110, 86 100 C 118 88, 142 62, 134 36 C 128 16, 104 10, 90 26" fill="none" stroke="#241e19" stroke-width="16" stroke-linecap="round" />
+          <circle cx="90" cy="26" r="8" fill="#e2795a" />
+        </svg>
+        <img id="catImage" src="assets/cat/cat.png" alt="卡通小猫" draggable="false" />
+      </div>
     </aside>
 
     <footer class="site-footer" aria-label="访客计数">
@@ -142,6 +149,23 @@
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="intro-modal" id="introModal" role="dialog" aria-modal="true" aria-labelledby="introTitle" aria-hidden="true">
+      <div class="intro-scrim" id="introScrim"></div>
+      <div class="intro-card">
+        <button class="intro-close" id="introClose" aria-label="关闭自我介绍">×</button>
+        <p class="intro-kicker">ABOUT ME</p>
+        <h2 class="intro-title" id="introTitle">关于这只猫</h2>
+        <div class="intro-body">
+          <p>一只黑橙色的猫，捣鼓音乐已经四年多。</p>
+          <p>是业余音乐作者，喜欢做电子、氛围、弱管弦、钢琴，以及一些日式、中式和凯尔特风格的音乐。</p>
+          <p>比起炫技，更喜欢给游戏、角色和故事做一点刚刚好的声音。</p>
+          <p>独立游戏 / OC / 短片 / PV / 剧情配乐均可。</p>
+          <p class="intro-sign">……如果你刚好也缺一只会写BGM的猫，可以叫我。<span class="intro-kao">ฅ^•ﻌ•^ฅ</span></p>
+        </div>
+      </div>
+    </div>
+
     <div class="grain" aria-hidden="true"></div>
   </div>
 
