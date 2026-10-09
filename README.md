@@ -19,9 +19,10 @@
 │       └── cat.png
 └── music/
     ├── playlist.json
-    ├── demo-summer.wav
-    ├── demo-midnight.wav
-    └── demo-rain.wav
+    ├── 01-celtic.wav
+    ├── 02-lofi.wav
+    ├── ...（共 11 首，01-11 顺序编号）
+    └── SAMPLE/
 ```
 
 ## 更换自己的 LOGO / 小猫

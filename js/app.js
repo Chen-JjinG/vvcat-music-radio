@@ -18,6 +18,8 @@
     fadeTimer: null,
     volume: PLAYER_CONFIG.defaultVolume,
     volumeDrag: null,
+    seeking: false,
+    seekWarned: false,
   };
 
   const els = {
@@ -291,10 +293,11 @@
   function updateProgress() {
     const duration = els.audio.duration;
     if (!Number.isFinite(duration) || duration <= 0) return;
-    const ratio = (els.audio.currentTime / duration) * 100;
-    els.progressRange.value = String(Math.min(100, Math.max(0, ratio)));
     els.currentTime.textContent = formatTime(els.audio.currentTime);
     els.durationTime.textContent = formatTime(duration);
+    if (state.seeking) return;
+    const ratio = (els.audio.currentTime / duration) * 100;
+    els.progressRange.value = String(Math.min(100, Math.max(0, ratio)));
 
     const remaining = duration - els.audio.currentTime;
     if (state.isPlaying && !state.fadeTimer && els.audio.volume > 0.02 && remaining > 0 && remaining < 0.8) {
@@ -302,8 +305,20 @@
     }
   }
 
+  function isSeekable() {
+    const a = els.audio;
+    return a.seekable.length > 0 && a.seekable.end(a.seekable.length - 1) > a.seekable.start(0) + 0.5;
+  }
+
   function seekAudio() {
     if (!Number.isFinite(els.audio.duration)) return;
+    if (!isSeekable()) {
+      if (!state.seekWarned) {
+        state.seekWarned = true;
+        showToast('当前服务器不支持进度跳转（缺少 Range 支持），部署到静态托管后可用');
+      }
+      return;
+    }
     const percent = Number(els.progressRange.value) / 100;
     els.audio.currentTime = els.audio.duration * percent;
   }
@@ -439,6 +454,15 @@
     els.prevBtn.addEventListener('click', () => stepTrack(-1));
     els.nextBtn.addEventListener('click', () => stepTrack(1));
     els.progressRange.addEventListener('input', seekAudio);
+    els.progressRange.addEventListener('pointerdown', () => { state.seeking = true; });
+    const endSeek = () => {
+      if (!state.seeking) return;
+      state.seeking = false;
+      seekAudio();
+    };
+    els.progressRange.addEventListener('pointerup', endSeek);
+    els.progressRange.addEventListener('pointercancel', endSeek);
+    els.progressRange.addEventListener('change', endSeek);
 
     els.volumeKnob.addEventListener('pointerdown', startVolumeDrag);
     els.volumeKnob.addEventListener('pointermove', moveVolumeDrag);

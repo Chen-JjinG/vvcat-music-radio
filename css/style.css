@@ -345,7 +345,7 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .lcd-screen {
   position: relative;
-  min-height: 330px;
+  height: 330px;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   padding: 15px;
@@ -953,7 +953,7 @@ button { -webkit-tap-highlight-color: transparent; }
   .main-stage { padding: 165px 45px 110px; }
   .radio-scene { width: min(840px, 88vw); }
   .radio-face { gap: 24px; padding-inline: 26px; }
-  .lcd-screen { min-height: 300px; }
+  .lcd-screen { height: 300px; }
   .cat-companion { width: clamp(110px, 18vw, 170px); right: 3.5vw; bottom: 3.5vh; }
   .header-copy { display: none; }
   .plaque { padding: 8px 16px 10px; gap: 12px; }
@@ -983,7 +983,7 @@ button { -webkit-tap-highlight-color: transparent; }
   .speaker-rim { inset: 13px; border-radius: 15px; }
   .speaker-label { display: none; }
   .control-panel { grid-row: 2; gap: 12px; }
-  .lcd-screen { min-height: 300px; }
+  .lcd-screen { height: 300px; }
   .hardware-row { grid-template-columns: 70px 1fr; gap: 8px; }
   .volume-knob { width: 56px; height: 56px; }
   .transport-buttons { gap: 8px; }
