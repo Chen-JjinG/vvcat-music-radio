@@ -496,7 +496,8 @@
     document.addEventListener('pointerup', endVolumeDrag);
   }
 
-  const CAT_POS_KEY = 'catCompanionPos';
+  const CAT_POS_KEY = 'catCompanionPosV2';
+  const INTRO_SEEN_KEY = 'vvcat-intro-seen';
 
   function clampCatPosition(left, top) {
     const width = els.catCompanion.offsetWidth;
@@ -615,6 +616,16 @@
     update();
   }
 
+  function maybeShowIntroOnFirstVisit() {
+    let seen = false;
+    try {
+      seen = Boolean(localStorage.getItem(INTRO_SEEN_KEY));
+      localStorage.setItem(INTRO_SEEN_KEY, '1');
+    } catch { /* localStorage 不可用时按首次访问处理 */ }
+    if (seen) return;
+    window.setTimeout(openIntro, 520);
+  }
+
   function initialise() {
     els.audio.volume = PLAYER_CONFIG.defaultVolume;
     setVolume(PLAYER_CONFIG.defaultVolume);
@@ -624,6 +635,7 @@
     bindIntroModal();
     restoreCatPosition();
     bindCatDrag();
+    maybeShowIntroOnFirstVisit();
     loadPlaylist();
   }
 

@@ -658,7 +658,7 @@ button { -webkit-tap-highlight-color: transparent; }
 
 .cat-companion {
   position: fixed;
-  right: clamp(20px, 5vw, 76px);
+  right: 10%;
   bottom: clamp(22px, 4.5vh, 50px);
   z-index: 15;
   width: clamp(120px, 11vw, 190px);
@@ -669,8 +669,9 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .cat-tail {
   position: absolute;
-  right: 9%;
-  bottom: 25%;
+  right: 5%;
+  bottom: 36%;
+  z-index: 0;
   width: 44%;
   height: auto;
   transform-origin: 6% 72%;

@@ -19,8 +19,8 @@
 │       └── cat.png
 └── music/
     ├── playlist.json
-    ├── 01-celtic.wav
-    ├── 02-lofi.wav
+    ├── 01-celtic.mp3
+    ├── 02-lofi.mp3
     ├── ...（共 11 首，01-11 顺序编号）
     └── SAMPLE/
 ```
