@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+ <rect width="600" height="600" fill="#201c19"/><rect x="24" y="24" width="552" height="552" fill="none" stroke="#cb7440" stroke-width="3"/>
+ <circle cx="300" cy="265" r="154" fill="#e98739"/><circle cx="300" cy="265" r="113" fill="#201c19"/><circle cx="300" cy="265" r="26" fill="#f4ead8"/>
+ <path d="M300 150 L300 380 M185 265 L415 265 M219 184 L381 346 M381 184 L219 346" stroke="#f4ead8" stroke-width="5" opacity=".45"/>
+ <text x="54" y="482" font-family="serif" font-size="42" fill="#f5ebd9">缚语</text><text x="56" y="522" font-family="monospace" font-size="15" fill="#e98739" letter-spacing="4">DEMO COVER / REPLACE</text>
+</svg>

@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4eedf">
+  <meta name="description" content="猫队长的个人音乐电台：电子、氛围、钢琴与游戏配乐。">
+  <title>猫队的收音机 vvcatのradio</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/config.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#intro">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#intro" aria-label="猫队的收音机，回到介绍区">
+        <img src="assets/logo.svg" alt="黑橙色猫队长标志" width="44" height="44">
+        <span class="brand-copy"><strong>猫队的收音机</strong><small>vvcat の radio <i>·</i> HAND BUILT / MUSIC</small></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav" aria-label="打开导航菜单"><span></span><span></span><span></span></button>
+      <nav class="main-nav" id="mainNav" aria-label="主导航">
+        <a class="nav-link active" href="#intro">介绍</a>
+        <a class="nav-link" href="#radio">收音机</a>
+        <a class="nav-link" href="#works">作品展示</a>
+        <a class="nav-link" href="#about">关于猫队长</a>
+        <a class="nav-contact" href="#contact">合作联系 <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro-section section-wrap" id="intro" aria-labelledby="intro-title">
+      <div class="intro-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> SMALL CAT, BIG SOUNDS <span class="eyebrow-line"></span></div>
+        <h1 id="intro-title">俺是猫队长，<br><span>喜欢捣鼓音乐。</span></h1>
+        <p class="intro-lead">俺是一只黑橙色的猫，喜欢捣鼓音乐。</p>
+        <p class="intro-body">业余音乐作者，会做电子、氛围、弱管弦、钢琴，以及一些日式、中式和凯尔特风格的音乐。比起炫技，更喜欢给游戏、角色和故事做一点刚刚好的声音。</p>
+        <div class="style-tags" aria-label="擅长的音乐风格">
+          <span>电子</span><span>氛围</span><span>弱管弦</span><span>纯钢琴</span><span>日式 / 中式 / 凯尔特</span>
+        </div>
+        <p class="for-who">独立游戏 <b>/</b> OC <b>/</b> 短片 <b>/</b> PV <b>/</b> 剧情配乐均可。</p>
+        <p class="intro-tail">……如果你刚好也缺一只会写 BGM 的猫，可以叫俺。<span aria-hidden="true">ฅ^•ﻌ•^ฅ</span></p>
+        <div class="intro-actions">
+          <a class="button button-primary" href="#radio">去收音机试听 <span aria-hidden="true">↓</span></a>
+          <a class="button button-quiet" href="#works">查看作品 <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="intro-footnote"><span class="tiny-check">✓</span> 个人创作小站 · 业余制作中 · 持续更新</div>
+      </div>
+
+      <aside class="runner-card" aria-labelledby="runner-heading">
+        <div class="runner-topline"><span class="pixel-badge">8-BIT</span><div><p class="runner-kicker">A LITTLE ARCADE</p><h2 id="runner-heading">CAT RUNNER</h2></div><div class="runner-score"><small>HI</small><strong id="hiScore">00000</strong></div></div>
+        <div class="game-screen-wrap">
+          <canvas id="runnerCanvas" width="640" height="238" tabindex="0" role="application" aria-label="像素猫跑酷小游戏。点击开始，之后点击或按空格跳跃。"></canvas>
+          <div class="game-overlay" id="gameOverlay">
+            <span class="overlay-icon" aria-hidden="true">▶</span>
+            <strong id="gameOverlayTitle">猫队长的下班跑酷</strong>
+            <span id="gameOverlayText">点击开始，跳过磁带和音箱。</span>
+            <button class="game-start" id="gameStart">开始游戏</button>
+          </div>
+        </div>
+        <div class="runner-bottom"><span><b class="status-dot"></b> <span id="gameStatus">READY · CAT IDLE</span></span><span>SPACE / TAP TO JUMP</span></div>
+        <div class="runner-note"><span aria-hidden="true">✦</span> 今日任务：躲开没写完的 BGM。</div>
+      </aside>
+    </section>
+
+    <section class="radio-section section-wrap" id="radio" aria-labelledby="radio-heading">
+      <div class="section-heading">
+        <div><p class="section-number">02 / RADIO</p><h2 id="radio-heading">来收音机里坐坐。</h2><p class="section-subtitle">先随便听听，看看哪一段声音刚好合你心意。</p></div>
+        <div class="live-stamp"><span class="status-dot"></span> LITTLE RADIO · MR-01</div>
+      </div>
+
+      <div class="radio-shell">
+        <div class="radio-left-panel">
+          <div class="radio-brand-sticker"><span>MR-01</span><small>PORTABLE MUSIC PLAYER</small></div>
+          <div class="speaker-row" aria-hidden="true"><div class="speaker speaker-large"><span></span></div><div class="speaker speaker-small"><span></span></div></div>
+          <div class="radio-dial-block"><div class="dial"><div class="dial-needle"></div><div class="dial-center"></div></div><div class="dial-label"><span>LOW</span><span>FM / VIBES</span><span>HIGH</span></div></div>
+          <div class="radio-lower-line"><span class="radio-light"></span><span>LITTLE RADIO</span><span class="radio-screw">✣</span></div>
+        </div>
+        <div class="radio-main-panel">
+          <div class="lcd-screen">
+            <div class="lcd-head"><span>NOW PLAYING</span><span class="lcd-signal"><i></i><i></i><i></i></span></div>
+            <div class="lcd-track-title" id="radioTrackTitle">还没有选择曲目</div>
+            <div class="lcd-track-sub" id="radioTrackSub">DEMO MODE · 演示音轨可替换为原有音乐</div>
+            <input class="lcd-progress-track" id="radioProgress" type="range" min="0" max="18" value="0" aria-label="收音机播放进度">
+            <div class="lcd-time"><span id="radioCurrentTime">00:00</span><span id="radioDuration">00:18</span></div>
+            <div class="lcd-state" id="radioState">READY · 点击作品开始播放</div>
+          </div>
+          <div class="radio-controls">
+            <div class="transport-controls">
+              <button class="hardware-btn" id="radioPrev" aria-label="上一首">◀◀<small>PREV</small></button>
+              <button class="hardware-btn main-play" id="radioPlay" aria-label="播放演示音轨">▶<small>PLAY / PAUSE</small></button>
+              <button class="hardware-btn" id="radioNext" aria-label="下一首">▶▶<small>NEXT</small></button>
+            </div>
+            <div class="volume-control"><label for="radioVolume">VOLUME <strong id="radioVolumeLabel">75</strong></label><input id="radioVolume" type="range" min="0" max="100" value="75" aria-label="收音机音量"></div>
+          </div>
+        </div>
+        <div class="radio-side-panel">
+          <div class="side-cat" aria-hidden="true"><img src="assets/logo.svg" alt="" width="68" height="68"><span>LISTENING...</span></div>
+          <div class="radio-knobs"><div class="knob-wrap"><span class="knob knob-one"></span><small>TUNE</small></div><div class="knob-wrap"><span class="knob knob-two"></span><small>LEVEL</small></div></div>
+          <button class="about-trigger" id="aboutTrigger">点击了解我 <span aria-hidden="true">↗</span></button>
+        </div>
+        <div class="radio-screws screws-a" aria-hidden="true">✣</div><div class="radio-screws screws-b" aria-hidden="true">✣</div>
+      </div>
+
+      <div class="playlist-panel">
+        <div class="playlist-title"><div><span class="section-number">YOUR LISTENING SHELF</span><h3>电台曲目</h3></div><span class="playlist-count" id="trackCount">03 TRACKS · DEMO</span></div>
+        <div class="track-list" id="radioTrackList" aria-label="可播放的演示音轨"></div>
+        <p class="demo-note"><span aria-hidden="true">ⓘ</span> 这是可交互的设计 Demo，当前音轨为本地合成演示素材。接入正式版本时，请将原站曲目数据与音频文件放回配置中。</p>
+      </div>
+    </section>
+
+    <section class="works-section section-wrap" id="works" aria-labelledby="works-heading">
+      <div class="section-heading works-heading">
+        <div><p class="section-number">03 / SELECTED WORKS</p><h2 id="works-heading">一些声音，后来有了自己的世界。</h2><p class="section-subtitle">把合作项目和个人练习分开放，让每段声音都有自己的位置。</p></div>
+        <span class="shelf-index">ARCHIVE No. 001—</span>
+      </div>
+
+      <div class="subsection-heading"><div><span class="mini-index">A.</span><h3>合作项目</h3></div><p>每一张封面，都对应一次声音相遇。</p></div>
+      <div class="album-shelf" id="collabShelf">
+        <article class="album-item">
+          <button class="album-hit" data-project="fuyu" aria-label="查看《缚语》项目说明">
+            <span class="album-cover"><img src="assets/cover-fuyu.svg" alt="《缚语》演示封面，占位图，需替换真实项目封面"><span class="cover-ribbon">DEMO ART</span></span>
+            <span class="album-name-card"><span class="album-name">《缚语》</span><span class="album-more">项目详情 <b>↗</b></span></span>
+          </button>
+          <span class="album-caption">COLLABORATION · 01</span>
+        </article>
+        <article class="album-item">
+          <button class="album-hit" data-project="fuyu-zhaiji" aria-label="查看《缚育宅姬》项目说明">
+            <span class="album-cover"><img src="assets/cover-fuyu-zhaiji.svg" alt="《缚育宅姬》演示封面，占位图，需替换真实项目封面"><span class="cover-ribbon">DEMO ART</span></span>
+            <span class="album-name-card"><span class="album-name">《缚育宅姬》</span><span class="album-more">项目详情 <b>↗</b></span></span>
+          </button>
+          <span class="album-caption">COLLABORATION · 02</span>
+        </article>
+        <div class="shelf-empty-note"><span class="note-star">✳</span><strong>还有更多留白</strong><p>这里可以继续摆放已确认的合作作品。正式封面和项目地址接入前，不展示虚构的项目详情。</p></div>
+      </div>
+      <div class="physical-shelf" aria-hidden="true"><span></span><span></span><span></span></div>
+
+      <div class="original-block">
+        <div class="subsection-heading"><div><span class="mini-index">B.</span><h3>原创音乐收藏</h3></div><p>一些尚未找到世界的旋律。</p></div>
+        <div class="original-grid">
+          <button class="original-track" data-track="0"><span class="original-art art-one"><img src="assets/covers/original-demo.svg" alt="演示原创音轨封面"></span><span class="original-track-info"><small>DEMO TRACK 01</small><strong>演示音轨 · Ambient</strong><span>氛围 / 合成演示素材</span></span><span class="play-disc" aria-hidden="true">▶</span></button>
+          <button class="original-track" data-track="1"><span class="original-art art-two"><img src="assets/covers/original-demo.svg" alt="演示原创音轨封面"></span><span class="original-track-info"><small>DEMO TRACK 02</small><strong>演示音轨 · Piano Mood</strong><span>旋律 / 合成演示素材</span></span><span class="play-disc" aria-hidden="true">▶</span></button>
+          <button class="original-track" data-track="2"><span class="original-art art-three"><img src="assets/covers/original-demo.svg" alt="演示原创音轨封面"></span><span class="original-track-info"><small>DEMO TRACK 03</small><strong>演示音轨 · Night Walk</strong><span>夜色 / 合成演示素材</span></span><span class="play-disc" aria-hidden="true">▶</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-contact-section section-wrap" id="about">
+      <div class="about-card">
+        <div class="about-card-cat"><img src="https://vvcat-radio.pages.dev/assets/cat/cat.png" alt="网站现有卡通小猫插画" onerror="this.onerror=null;this.src='assets/logo.svg'"><span>ABOUT THE CAT</span></div>
+        <div class="about-card-copy"><p class="section-number">A LITTLE INTRODUCTION</p><h2>关于这只猫</h2><p>俺是一只黑橙色的猫，喜欢捣鼓音乐。</p><p>业余音乐作者，会做电子、氛围、弱管弦、钢琴，以及一些日式、中式和凯尔特风格的音乐。</p><p>比起炫技，更喜欢给游戏、角色和故事做一点刚刚好的声音。</p><p>独立游戏 / OC / 短片 / PV / 剧情配乐均可。</p><p>……如果你刚好也缺一只会写 BGM 的猫，可以叫俺。ฅ^•ﻌ•^ฅ</p></div>
+      </div>
+      <div class="contact-card" id="contact"><div class="contact-stamp">OPEN FOR<br>NEW WORLDS</div><p class="section-number">LET'S MAKE A LITTLE NOISE</p><h2>你的故事，<br>需要一点声音吗？</h2><p>正在为游戏、角色或短片寻找合适的音乐？可以先带着项目设想来聊聊。</p><button class="button button-primary" id="contactButton">联系猫队长 <span aria-hidden="true">↗</span></button><small class="contact-hint">联系地址尚未配置 · 请在 js/config.js 中填写</small></div>
+    </section>
+  </main>
+
+  <footer class="site-footer section-wrap">
+    <div class="footer-brand"><img src="assets/logo.svg" alt="" width="34" height="34"><span><strong>猫队的收音机</strong><small>KEEP MAKING SMALL SOUNDS.</small></span></div>
+    <div class="visitor-box"><span>VISITOR COUNTER</span><img src="https://count.getloli.com/@vvcat-radio?theme=sketch-1" alt="访客计数器；网络不可用时可能无法显示" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><small class="counter-fallback">外部访客计数器需联网</small></div>
+    <div class="footer-credit"><span>make by vvcat</span><a href="#intro">回到顶部 ↑</a></div>
+  </footer>
+
+  <dialog class="info-dialog" id="aboutDialog" aria-labelledby="dialogTitle">
+    <button class="dialog-close" id="dialogClose" aria-label="关闭介绍">×</button>
+    <div class="dialog-cat"><img src="assets/logo.svg" alt="猫队长标志"></div>
+    <p class="section-number">ABOUT ME</p><h2 id="dialogTitle">关于这只猫</h2>
+    <p>俺是一只黑橙色的猫，喜欢捣鼓音乐。</p>
+    <p>业余音乐作者，会做电子、氛围、弱管弦、钢琴，以及一些日式、中式和凯尔特风格的音乐。</p>
+    <p>比起炫技，更喜欢给游戏、角色和故事做一点刚刚好的声音。</p>
+    <p>独立游戏 / OC / 短片 / PV / 剧情配乐均可。</p>
+    <p>……如果你刚好也缺一只会写 BGM 的猫，可以叫俺。ฅ^•ﻌ•^ฅ</p>
+  </dialog>
+
+  <dialog class="info-dialog small-dialog" id="messageDialog" aria-labelledby="messageTitle">
+    <button class="dialog-close" id="messageClose" aria-label="关闭提示">×</button><p class="section-number">DEMO NOTICE</p><h2 id="messageTitle">这是一份演示页面</h2><p id="messageText">项目详情需要配置真实地址。</p><button class="button button-primary dialog-ok" id="messageOk">知道了</button>
+  </dialog>
+
+  <audio id="sharedAudio" preload="metadata"></audio>
+  <div class="bottom-player" id="bottomPlayer" aria-label="常驻音乐播放器">
+    <div class="bottom-track">
+      <div class="mini-cover"><img src="assets/logo.svg" alt=""></div>
+      <div class="bottom-track-copy"><strong id="bottomTrackTitle">还没有播放曲目</strong><span id="bottomTrackSub">选择一首演示音轨开始试听</span></div>
+      <span class="playing-eq" id="playingEq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </div>
+    <div class="bottom-main-controls">
+      <div class="bottom-buttons"><button id="bottomPrev" aria-label="上一首">⏮</button><button class="bottom-play" id="bottomPlay" aria-label="播放">▶</button><button id="bottomNext" aria-label="下一首">⏭</button></div>
+      <div class="bottom-progress-row"><span id="bottomCurrentTime">00:00</span><input id="bottomProgress" type="range" min="0" max="18" value="0" aria-label="播放进度"><span id="bottomDuration">00:18</span></div>
+    </div>
+    <div class="bottom-extra"><button id="bottomVolumeToggle" aria-label="显示音量控制" title="音量">♫</button><div class="bottom-volume-wrap"><input id="bottomVolume" type="range" min="0" max="100" value="75" aria-label="底栏音量"><span id="bottomVolumeLabel">75%</span></div><button id="bottomListToggle" aria-label="打开播放列表" title="播放列表">☷</button></div>
+    <div class="bottom-list-popover" id="bottomListPopover" hidden><div class="popover-heading">播放列表 <button id="bottomListClose" aria-label="关闭播放列表">×</button></div><div id="bottomTrackList"></div></div>
+  </div>
+</body>
+</html>

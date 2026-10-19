@@ -1,76 +1,68 @@
-# My Little Radio
+# 猫队的收音机 vvcat の radio
 
-基于 `music_radio_static_web_requirements.md` v1.1 制作的纯静态音乐作品展示页。
+个人音乐作品展示站（纯静态）。页面顺序：**顶部导航 → 个人介绍 + 像素猫小游戏 → 复古收音机 → 合作项目 → 合作联系 → 页脚**，另有一个固定在窗口底部的常驻播放栏，以及右下角可拖拽的陪伴小猫。
 
 ## 项目结构
 
 ```text
 /
-├── index.html
-├── README.md
+├── index.html               页面结构
 ├── css/
-│   └── style.css
+│   └── styles.css           样式（含结尾的改版补充样式）
 ├── js/
-│   └── app.js
+│   ├── config.js            ★ 曲目列表、项目链接、联系方式
+│   └── app.js               播放器、屏内歌单、小游戏、悬浮小猫
 ├── assets/
-│   ├── logo/
-│   │   └── logo.png
-│   └── cat/
-│       └── cat.png
-└── music/
-    ├── playlist.json
-    ├── 01-celtic.mp3
-    ├── 02-lofi.mp3
-    ├── ...（共 11 首，01-11 顺序编号）
-    └── SAMPLE/
+│   ├── logo/logo.png                站点标志（导航 / 页脚 / 收音机侧栏）
+│   ├── cat/cat.png                  悬浮小猫插画
+│   ├── cat/8bitcat.png              跑酷小游戏的像素猫精灵图
+│   ├── cat/catwithtile-trim.png     联系卡片右侧的小猫（已裁掉透明边距）
+│   └── covers/                      合作作品封面（缚语.jpg / 缚育宅姬.jpg）
+├── music/                   音频文件（01-11，MP3）
+└── vvcat-radio-demo/        本次改版的设计稿（含 DESIGN-SPEC.md，可作参考）
 ```
 
-## 更换自己的 LOGO / 小猫
+## 添加 / 更换音乐
 
-直接替换以下文件即可，不需要修改 HTML / CSS / JavaScript：
+音频放进 `music/`，然后编辑 `js/config.js` 的 `tracks`：
 
-- `assets/logo/logo.png`
-- `assets/cat/cat.png`
-
-LOGO 也可以改成 JPG / WEBP / SVG，但如果直接替换文件名，需保持 `logo.png` 路径；小猫建议使用透明背景 PNG。
-
-## 添加自己的音乐
-
-把音频文件放进 `music/`，然后编辑 `music/playlist.json`：
-
-```json
-[
-  {
-    "title": "My Song",
-    "file": "my-song.mp3"
-  }
-]
+```js
+window.VVCAT_CONFIG = {
+  tracks: [
+    { title: "曲名", subtitle: "风格标签", src: "music/my-song.mp3" }
+  ],
+  projectLinks: { fuyu: "", "fuyu-zhaiji": "" },
+  contacts: [{ name: "vvcat", qq: "1790993370" }]
+};
 ```
 
-`file` 是相对于 `music/` 的文件名。推荐使用英文 / 数字文件名，并优先使用 MP3。
+- `title` 显示在收音机屏幕、屏内歌单和底部播放栏；`subtitle` 是曲目下方的风格说明。
+- 歌单直接写在配置里（不走网络请求），所以双击 `index.html` 用 `file://` 打开也能正常播放。
+- 推荐 MP3（体积小、加载快）。音频响度已统一到 -14 LUFS，新增曲目建议保持接近的响度。
+
+## 配置合作联系与项目链接
+
+- `contacts`：联系方式列表（当前是两个 QQ）。每项写 `name` 和 `qq`，页面上会渲染成一行，点击即可复制号码。
+- `projectLinks`：合作作品卡片「项目详情」的跳转地址，目前已指向爱发电上对应的作品页；要换地址改这里即可。
+- 作品封面放在 `assets/covers/`，替换同名文件即可。标题 LOGO 类封面会完整显示不裁切，插画类封面按方形铺满。
+
+## 更换 LOGO / 小猫
+
+直接替换即可，不需要改代码：`assets/logo/logo.png`、`assets/cat/cat.png`（建议透明背景 PNG，保持文件名不变）。
 
 ## 本地预览
 
-因为浏览器会限制直接以 `file://` 方式读取 `playlist.json`，本地预览建议在项目目录启动一个最简单的静态文件服务器，例如：
+双击 `index.html` 即可预览（歌单已内置于配置，无需服务器）。若想用本地服务器：
 
 ```bash
 python -m http.server 8000
 ```
 
-然后访问 `http://localhost:8000/`。
+然后访问 `http://localhost:8000/`。注意：**部分简易服务器不支持 HTTP Range**，会导致拖动进度条无法跳转；部署到 GitHub Pages 等静态托管没有这个问题。
 
-部署到任意静态服务器时，直接上传整个目录即可，不需要 Node.js、后端 API 或数据库。
+## 页面里的可交互元素
 
-## 播放列表循环
-
-打开 `js/app.js`，顶部配置：
-
-```js
-const PLAYER_CONFIG = {
-  loopPlaylist: false,
-  defaultVolume: 0.75,
-  noteIntervalMs: 1250,
-};
-```
-
-把 `loopPlaylist` 改成 `true` 即可让最后一首结束后回到第一首。
+- **收音机**：屏幕内是曲目列表（可滚动），点击即播放；上方进度条可拖动跳转，下方是上一首 / 播放暂停 / 下一首与音量。
+- **底部播放栏**：与收音机共用同一个播放器，进度、音量、曲目双向同步；右侧可展开播放列表。
+- **像素猫跑酷**：介绍区右侧，点击 / 空格跳跃，记录本地最高分。
+- **悬浮小猫**：可拖到窗口任意位置（位置会被记住），播放时冒音符；点击它会滚回顶部介绍区。
