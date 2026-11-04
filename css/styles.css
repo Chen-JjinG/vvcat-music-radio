@@ -104,3 +104,25 @@
 .contact-qq .qq-num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.02em}
 .contact-qq .qq-action{font-size:10px;opacity:.72}
 .contact-qq:hover .qq-action,.contact-qq:focus-visible .qq-action{opacity:1}
+
+.nav-toolbox{position:relative}
+.nav-toolbox summary{
+  display:flex;align-items:center;gap:5px;padding:9px 0;
+  list-style:none;white-space:nowrap;cursor:pointer;color:#5d554b;
+}
+.nav-toolbox summary::-webkit-details-marker{display:none}
+.nav-toolbox summary:hover,.nav-toolbox[open] summary{color:var(--ink)}
+.nav-toolbox summary span,.toolbox-links span{color:var(--orange)}
+.nav-toolbox[open] summary span{transform:rotate(180deg)}
+.nav-toolbox summary:focus-visible,.toolbox-links a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.toolbox-links{
+  position:absolute;top:calc(100% + 4px);right:0;min-width:158px;
+  padding:5px;border:1px solid var(--line);border-radius:7px;
+  background:var(--white);box-shadow:0 8px 18px rgba(51,37,20,.14);
+}
+.toolbox-links a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:4px;white-space:nowrap}
+.toolbox-links a:hover,.toolbox-links a:focus-visible{background:#f0e4ce}
+@media(max-width:760px){
+  .nav-toolbox summary{justify-content:space-between;padding:12px 10px}
+  .toolbox-links{position:static;margin:0 0 4px 10px;box-shadow:none}
+}

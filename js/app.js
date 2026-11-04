@@ -28,16 +28,28 @@
   // Mobile navigation
   const menuToggle = $('menuToggle');
   const mainNav = $('mainNav');
+  const toolbox = $('navToolbox');
+  const closeToolbox = () => { toolbox.open = false; };
   menuToggle?.addEventListener('click', () => {
     const open = mainNav.classList.toggle('is-open');
+    if (!open) closeToolbox();
     menuToggle.setAttribute('aria-expanded', String(open));
     menuToggle.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
   });
   mainNav?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    closeToolbox();
     mainNav.classList.remove('is-open');
     menuToggle?.setAttribute('aria-expanded', 'false');
     menuToggle?.setAttribute('aria-label', '打开导航菜单');
   }));
+  document.addEventListener('click', (event) => {
+    if (toolbox.open && !toolbox.contains(event.target)) closeToolbox();
+  });
+  toolbox.addEventListener('keydown', (event) => {
+    if (!toolbox.open || event.key !== 'Escape') return;
+    closeToolbox();
+    toolbox.querySelector('summary').focus();
+  });
 
   // Highlight the active section without changing the page's layout.
   const navLinks = [...document.querySelectorAll('.nav-link')];
