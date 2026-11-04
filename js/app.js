@@ -51,24 +51,45 @@
     toolbox.querySelector('summary').focus();
   });
 
-  // Highlight the active section without changing the page's layout.
-  const navLinks = [...document.querySelectorAll('.nav-link')];
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      const candidates = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      if (!candidates.length) return;
-      const id = candidates[0].target.id;
-      // 已经在介绍区时，猫头顶的「点击了解我」提示没有存在意义，先收起来。
-      $('catCompanion')?.classList.toggle('is-intro', id === 'intro');
-      navLinks.forEach(link => {
-        const active = link.getAttribute('href') === `#${id}`;
-        link.classList.toggle('active', active);
-        if (active) link.setAttribute('aria-current', 'location');
-        else link.removeAttribute('aria-current');
-      });
-    }, { rootMargin: '-22% 0px -62% 0px', threshold: [0, .15, .3, .5] });
-    ['intro', 'radio', 'works', 'contact'].forEach(id => { const el = $(id); if (el) observer.observe(el); });
+  const header = document.querySelector('.site-header');
+  const player = $('bottomPlayer');
+  const navigation = Array.from(mainNav.querySelectorAll('a[href^="#"]'), link => ({
+    link,
+    target: document.querySelector(link.getAttribute('href')),
+  }));
+  let activeFrame = 0;
+  function syncActiveSection() {
+    activeFrame = 0;
+    const readingLine = header.getBoundingClientRect().bottom + 24;
+    let current = navigation[0];
+    for (const item of navigation) {
+      if (item.target.getBoundingClientRect().top <= readingLine) current = item;
+    }
+    $('catCompanion').classList.toggle('is-intro', current.target.id === 'intro');
+    for (const { link, target } of navigation) {
+      const active = target === current.target;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
   }
+  function scheduleActiveSection() {
+    if (!activeFrame) activeFrame = requestAnimationFrame(syncActiveSection);
+  }
+  function syncPlayerSpace() {
+    document.documentElement.style.setProperty('--player-space', `${player.getBoundingClientRect().height}px`);
+    scheduleActiveSection();
+  }
+  new ResizeObserver(syncPlayerSpace).observe(player);
+  window.addEventListener('scroll', scheduleActiveSection, { passive: true });
+  window.addEventListener('resize', scheduleActiveSection);
+  window.addEventListener('hashchange', scheduleActiveSection);
+  requestAnimationFrame(() => {
+    syncPlayerSpace();
+    const initial = navigation.find(({ link }) => link.hash === location.hash);
+    // Dynamic track lists and the player have their final layout by this point.
+    initial?.target.scrollIntoView({ behavior: 'instant', block: 'start' });
+  });
 
   function renderTrackLists() {
     const mainList = $('radioTrackList');
@@ -329,10 +350,6 @@
     syncPlayState();
   });
 
-  // 自我介绍只保留在页面介绍区：这里的入口统一滚动过去，不再弹出对话窗。
-  const scrollToIntro = () => $('intro')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-  $('aboutTrigger')?.addEventListener('click', scrollToIntro);
-  $('catHint')?.addEventListener('click', scrollToIntro);
   $('messageClose')?.addEventListener('click', () => $('messageDialog').close());
   $('messageOk')?.addEventListener('click', () => $('messageDialog').close());
 
@@ -392,41 +409,12 @@
     });
   }
 
-  // 悬浮小猫：可以拖到任意位置的陪伴挂件，播放音乐时从身上冒出音符。
-  const CAT_POS_KEY = 'catCompanionPosV4';
   const companion = $('catCompanion');
-  const catFigure = document.querySelector('.cat-figure');
-  const catImage = $('catImage');
   const noteCloud = $('noteCloud');
   let noteTimer = null;
 
-  // 底部有常驻播放栏，小猫的可活动范围要把播放栏高度排除掉，避免被它盖住。
-  const playerBarHeight = () => {
-    const bar = $('bottomPlayer');
-    return bar ? bar.getBoundingClientRect().height : 0;
-  };
-  const clampCatPosition = (left, top) => {
-    const maxLeft = Math.max(0, window.innerWidth - companion.offsetWidth);
-    const maxTop = Math.max(0, window.innerHeight - companion.offsetHeight - playerBarHeight() - 16);
-    return { left: Math.min(maxLeft, Math.max(0, left)), top: Math.min(maxTop, Math.max(0, top)) };
-  };
-  const setCatPosition = (left, top, persist) => {
-    const pos = clampCatPosition(left, top);
-    companion.style.left = `${pos.left}px`;
-    companion.style.top = `${pos.top}px`;
-    companion.style.right = 'auto';
-    companion.style.bottom = 'auto';
-    if (persist) { try { localStorage.setItem(CAT_POS_KEY, JSON.stringify(pos)); } catch (_) { /* 隐私模式可能不可用 */ } }
-  };
-  const restoreCatPosition = () => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(CAT_POS_KEY) || 'null');
-      if (saved && Number.isFinite(saved.left) && Number.isFinite(saved.top)) setCatPosition(saved.left, saved.top, false);
-    } catch (_) { /* 忽略损坏的存档 */ }
-  };
-
   function spawnNote() {
-    if (!noteCloud) return;
+    if (reduceMotion || companion.dataset.dock) return;
     const glyphs = ['♪', '♫', '♬'];
     const note = document.createElement('span');
     note.className = 'note';
@@ -450,39 +438,11 @@
     noteTimer = null;
   }
 
-  if (companion && catFigure && catImage) {
-    let drag = null;
-    catImage.addEventListener('pointerdown', event => {
-      const rect = companion.getBoundingClientRect();
-      drag = { startX: event.clientX, startY: event.clientY, baseLeft: rect.left, baseTop: rect.top, moved: 0 };
-      try { catImage.setPointerCapture(event.pointerId); } catch (_) { /* 指针可能已失效 */ }
-      catFigure.classList.add('is-dragging');
-      event.preventDefault();
-    });
-    catImage.addEventListener('dragstart', event => event.preventDefault());
-    catImage.addEventListener('pointermove', event => {
-      if (!drag) return;
-      drag.moved = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY);
-      setCatPosition(drag.baseLeft + event.clientX - drag.startX, drag.baseTop + event.clientY - drag.startY, false);
-    });
-    const finishDrag = event => {
-      if (!drag) return;
-      const isTap = drag.moved < 6 && event.type === 'pointerup';
-      drag = null;
-      catFigure.classList.remove('is-dragging');
-      const rect = companion.getBoundingClientRect();
-      setCatPosition(rect.left, rect.top, true);
-      if (isTap) scrollToIntro();
-    };
-    catImage.addEventListener('pointerup', finishDrag);
-    catImage.addEventListener('pointercancel', finishDrag);
-    window.addEventListener('resize', () => {
-      if (!companion.style.left) return;
-      const rect = companion.getBoundingClientRect();
-      setCatPosition(rect.left, rect.top, false);
-    });
-    restoreCatPosition();
-  }
+  window.VvcatCompanion.mount(companion, {
+    header,
+    footer: player,
+    storageKey: 'catCompanionPosV4',
+  });
 
   // Pixel runner: pixel-grid art, self-drawn cat and cassette/speaker obstacles.
   const canvas = $('runnerCanvas');
