@@ -8,7 +8,9 @@
   <title>猫队的收音机 vvcatのradio</title>
   <link rel="icon" type="image/png" href="assets/logo/logo.png">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/cat-companion.css">
   <script src="js/config.js" defer></script>
+  <script src="js/cat-companion.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
 <body>
@@ -21,7 +23,7 @@
       </a>
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav" aria-label="打开导航菜单"><span></span><span></span><span></span></button>
       <nav class="main-nav" id="mainNav" aria-label="主导航">
-        <a class="nav-link active" href="#intro">关于猫队长</a>
+        <a class="nav-link active" href="#intro" aria-current="location">关于猫队长</a>
         <a class="nav-link" href="#radio">收音机</a>
         <a class="nav-link" href="#works">合作项目</a>
         <details class="nav-toolbox" id="navToolbox">
@@ -36,7 +38,7 @@
   </header>
 
   <main>
-    <section class="intro-section section-wrap" id="intro" aria-labelledby="intro-title">
+    <section class="intro-section section-wrap" id="intro" aria-labelledby="intro-title" tabindex="-1">
       <div class="intro-copy">
         <div class="eyebrow"><span class="eyebrow-dot"></span> SMALL CAT, BIG SOUNDS <span class="eyebrow-line"></span></div>
         <h1 id="intro-title">你好呀，这里是<br><span>猫队长 VVcat！</span></h1>
@@ -71,8 +73,8 @@
       </aside>
     </section>
 
-    <section class="radio-section section-wrap" id="radio" aria-labelledby="radio-heading">
-      <div class="section-heading">
+    <section class="radio-section section-wrap" aria-labelledby="radio-heading">
+      <div class="section-heading" id="radio" tabindex="-1">
         <div><p class="section-number">02 / RADIO</p><h2 id="radio-heading">来收音机里坐坐。</h2><p class="section-subtitle">先随便听听，看看哪一段声音刚好合你心意。</p></div>
         <div class="live-stamp"><span class="status-dot"></span> LITTLE RADIO · MR-01</div>
       </div>
@@ -106,14 +108,14 @@
         <div class="radio-side-panel">
           <div class="side-cat" aria-hidden="true"><img src="assets/logo/logo.png" alt="" width="68" height="68"><span>LISTENING...</span></div>
           <div class="radio-knobs"><div class="knob-wrap"><span class="knob knob-one"></span><small>TUNE</small></div><div class="knob-wrap"><span class="knob knob-two"></span><small>LEVEL</small></div></div>
-          <button class="about-trigger" id="aboutTrigger">关于猫队长 <span aria-hidden="true">↑</span></button>
+          <a class="about-trigger" href="#intro">关于猫队长 <span aria-hidden="true">↑</span></a>
         </div>
         <div class="radio-screws screws-a" aria-hidden="true">✣</div><div class="radio-screws screws-b" aria-hidden="true">✣</div>
       </div>
     </section>
 
-    <section class="works-section section-wrap" id="works" aria-labelledby="works-heading">
-      <div class="section-heading works-heading">
+    <section class="works-section section-wrap" aria-labelledby="works-heading">
+      <div class="section-heading works-heading" id="works" tabindex="-1">
         <div><p class="section-number">03 / SELECTED WORKS</p><h2 id="works-heading">一些声音，后来有了自己的世界。</h2><p class="section-subtitle">已经确定下来的合作项目，都陈列在这排架子上。</p></div>
         <span class="shelf-index">ARCHIVE No. 001—</span>
       </div>
@@ -139,12 +141,12 @@
       <div class="physical-shelf" aria-hidden="true"><span></span><span></span><span></span></div>
     </section>
 
-    <section class="about-contact-section section-wrap" id="contact">
-      <div class="contact-card">
+    <section class="about-contact-section section-wrap" aria-labelledby="contact-heading">
+      <div class="contact-card" id="contact" tabindex="-1">
         <div class="contact-copy">
           <div class="contact-stamp">OPEN FOR<br>NEW WORLDS</div>
           <p class="section-number">LET'S MAKE A LITTLE NOISE</p>
-          <h2>你的故事，<br>需要一点声音吗？</h2>
+          <h2 id="contact-heading">你的故事，<br>需要一点声音吗？</h2>
           <p>正在为游戏、角色或短片寻找合适的音乐？可以先带着项目设想来聊聊。</p>
           <div class="contact-qqs" id="contactQqs" aria-label="联系方式"></div>
         </div>
@@ -163,17 +165,21 @@
     <button class="dialog-close" id="messageClose" aria-label="关闭提示">×</button><p class="section-number">NOTICE</p><h2 id="messageTitle">还差一点配置</h2><p id="messageText">项目详情需要配置真实地址。</p><button class="button button-primary dialog-ok" id="messageOk">知道了</button>
   </dialog>
 
-  <aside class="cat-companion" id="catCompanion" aria-label="音乐陪伴小猫">
-    <div class="note-cloud" id="noteCloud" aria-hidden="true"></div>
-    <div class="cat-bubble" id="catBubble">LISTENING...</div>
-    <button class="cat-hint" id="catHint" type="button">点击了解我</button>
-    <div class="cat-figure">
-      <svg class="cat-tail" viewBox="0 0 160 120" aria-hidden="true">
-        <path d="M 10 86 C 26 102, 56 110, 86 100 C 118 88, 142 62, 134 36 C 128 16, 104 10, 90 26" fill="none" stroke="#241e19" stroke-width="16" stroke-linecap="round" />
-        <circle cx="90" cy="26" r="8" fill="#e2795a" />
-      </svg>
-      <img id="catImage" src="assets/cat/cat.png" alt="卡通小猫" draggable="false" />
+  <aside class="vvcat cat-companion is-intro" id="catCompanion" aria-label="音乐陪伴小猫">
+    <div class="vvcat-panel" id="radioCatPanel">
+      <div class="note-cloud" id="noteCloud" aria-hidden="true"></div>
+      <div class="cat-bubble" aria-hidden="true">LISTENING...</div>
+      <div class="vvcat-controls">
+        <a class="vvcat-hint" href="#intro">点击了解我</a>
+        <button class="vvcat-dock" type="button" aria-label="将小猫收至屏幕边缘" title="收起小猫，也可拖到屏幕边缘"><span aria-hidden="true">›</span></button>
+      </div>
+      <a class="vvcat-figure" href="#intro" aria-label="回到介绍区" draggable="false">
+        <img class="vvcat-fallback" src="assets/cat/cat.png" alt="" width="2048" height="2048" draggable="false">
+        <canvas class="vvcat-sprite" data-sprite="assets/vvcat-motions.webp" width="240" height="240" aria-hidden="true"></canvas>
+        <span class="vvcat-grab" aria-hidden="true"></span>
+      </a>
     </div>
+    <button class="vvcat-tab" type="button" aria-label="展开小猫" aria-controls="radioCatPanel" aria-expanded="false" title="展开小猫"><img src="assets/logo/logo.png" alt="" width="20" height="20"><span aria-hidden="true">‹</span></button>
   </aside>
 
   <audio id="sharedAudio" preload="metadata"></audio>
