@@ -6,8 +6,7 @@
  *   src      音频相对路径
  * 项目链接：合作作品卡片「项目详情」的跳转地址，留空时点击会提示去配置。
  * 联系方式：显示在「合作联系」卡片里，点击即可复制 QQ 号。
- * 工具箱：导航「工具箱」菜单。url 留空时仍显示名称，但不跳转；
- *   净色部署到 Cloud Pages 后，把地址填进对应项即可。
+ * 工具箱：导航「工具箱」菜单。填写 https 地址后，在新标签页打开。
  */
 window.VVCAT_CONFIG = {
   tracks: [
@@ -35,6 +34,6 @@ window.VVCAT_CONFIG = {
   ],
   toolboxLinks: [
     { name: "音频切分工具", url: "https://onlineaudiocutter.pages.dev/#editor" },
-    { name: "净色 · AI 图像降噪", url: "" }
+    { name: "净色 · AI 图像降噪", url: "https://vvcat-img.pages.dev/" }
   ]
 };
