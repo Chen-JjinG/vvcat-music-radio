@@ -6,6 +6,7 @@
  *   src      音频相对路径
  * 项目链接：合作作品卡片「项目详情」的跳转地址，留空时点击会提示去配置。
  * 联系方式：显示在「合作联系」卡片里，点击即可复制 QQ 号。
+ * 工具箱：导航「工具箱」菜单。填写 https 地址后，在新标签页打开。
  */
 window.VVCAT_CONFIG = {
   tracks: [
@@ -30,5 +31,9 @@ window.VVCAT_CONFIG = {
   contacts: [
     { name: "vvcat", qq: "1790993370" },
     { name: "桔大", qq: "2291571658" }
+  ],
+  toolboxLinks: [
+    { name: "音频切分工具", url: "https://onlineaudiocutter.pages.dev/#editor" },
+    { name: "净色 · AI 图像降噪", url: "https://vvcat-img.pages.dev/" }
   ]
 };

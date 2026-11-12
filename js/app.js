@@ -30,6 +30,35 @@
   const mainNav = $('mainNav');
   const toolbox = $('navToolbox');
   const closeToolbox = () => { toolbox.open = false; };
+  // 工具箱外链来自 config.toolboxLinks。地址为空时只显示名称，不填假链接。
+  const toolboxList = $('toolboxLinks');
+  const pendingToolboxNote = '部署 Cloud Pages 后在 config.js 填入地址';
+  if (toolboxList && Array.isArray(config.toolboxLinks)) {
+    toolboxList.replaceChildren();
+    config.toolboxLinks.forEach((item) => {
+      if (!item || typeof item.name !== 'string' || !item.name.trim()) return;
+      const name = item.name.trim();
+      const url = typeof item.url === 'string' ? item.url.trim() : '';
+      if (/^https?:\/\//i.test(url)) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.append(document.createTextNode(`${name} `));
+        const arrow = document.createElement('span');
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = '↗';
+        link.append(arrow);
+        toolboxList.append(link);
+        return;
+      }
+      const pending = document.createElement('span');
+      pending.className = 'toolbox-pending';
+      pending.title = pendingToolboxNote;
+      pending.textContent = name;
+      toolboxList.append(pending);
+    });
+  }
   menuToggle?.addEventListener('click', () => {
     const open = mainNav.classList.toggle('is-open');
     if (!open) closeToolbox();
