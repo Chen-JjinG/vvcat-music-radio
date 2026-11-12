@@ -10,7 +10,7 @@
 ├── css/
 │   └── styles.css           样式（含结尾的改版补充样式）
 ├── js/
-│   ├── config.js            ★ 曲目列表、项目链接、联系方式
+│   ├── config.js            ★ 曲目列表、项目链接、联系方式、工具箱链接
 │   └── app.js               播放器、屏内歌单、小游戏、悬浮小猫
 ├── assets/
 │   ├── logo/logo.png                站点标志（导航 / 页脚 / 收音机侧栏）
@@ -32,7 +32,11 @@ window.VVCAT_CONFIG = {
     { title: "曲名", subtitle: "风格标签", src: "music/my-song.mp3" }
   ],
   projectLinks: { fuyu: "", "fuyu-zhaiji": "" },
-  contacts: [{ name: "vvcat", qq: "1790993370" }]
+  contacts: [{ name: "vvcat", qq: "1790993370" }],
+  toolboxLinks: [
+    { name: "音频切分工具", url: "https://onlineaudiocutter.pages.dev/#editor" },
+    { name: "净色 · AI 图像降噪", url: "" }
+  ]
 };
 ```
 
@@ -45,6 +49,7 @@ window.VVCAT_CONFIG = {
 - `contacts`：联系方式列表（当前是两个 QQ）。每项写 `name` 和 `qq`，页面上会渲染成一行，点击即可复制号码。
 - `projectLinks`：合作作品卡片「项目详情」的跳转地址，目前已指向爱发电上对应的作品页；要换地址改这里即可。
 - 作品封面放在 `assets/covers/`，替换同名文件即可。标题 LOGO 类封面会完整显示不裁切，插画类封面按方形铺满。
+- `toolboxLinks`：顶部「工具箱」按这份列表渲染。净色图像降噪站部署到 Cloud Pages 之后，把地址填进对应项的 `url`；留空时菜单仍显示该项，但不会跳转到空地址。
 
 ## 更换 LOGO / 小猫
 
