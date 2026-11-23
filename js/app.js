@@ -382,9 +382,14 @@
   $('messageClose')?.addEventListener('click', () => $('messageDialog').close());
   $('messageOk')?.addEventListener('click', () => $('messageDialog').close());
 
+  const projectTitles = {
+    fuyu: '《缚语》',
+    'fuyu-zhaiji': '《缚育宅姬》',
+    'fuyu-yu': '《缚驭》'
+  };
   document.querySelectorAll('[data-project]').forEach(button => button.addEventListener('click', () => {
     const key = button.dataset.project;
-    const title = key === 'fuyu' ? '《缚语》' : '《缚育宅姬》';
+    const title = projectTitles[key] || '合作项目';
     const url = (config.projectLinks || {})[key];
     if (url && /^https?:\/\//i.test(url)) window.open(url, '_blank', 'noopener,noreferrer');
     else openNotice(title, '封面已经是真实作品图了，但还没有配置作品页面地址。把地址填进 js/config.js 的 projectLinks，点击就能直接打开。');
