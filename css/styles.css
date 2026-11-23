@@ -85,6 +85,8 @@
 
 /* 6) 作品封面：标题 LOGO 类封面完整显示不裁切，像素风封面放大时保持硬边 */
 .album-cover.is-logo img{object-fit:contain;image-rendering:pixelated}
+/* 《缚驭》是 1000×558 宽图，方框默认居中裁切会把女主的脸切在右缘。靠右取景，脸和发间莲花都留在画面里。 */
+.album-cover.is-focus-right img{object-position:right center}
 
 /* 7) 联系方式（QQ）：沿用橙色高亮主按钮样式，一行一个，点一下复制号码 */
 .contact-qqs{display:flex;flex-direction:column;gap:10px;margin-top:20px;max-width:340px}
