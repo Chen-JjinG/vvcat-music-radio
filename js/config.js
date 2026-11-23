@@ -20,13 +20,18 @@ window.VVCAT_CONFIG = {
     { title: "氛围 · Ambient", subtitle: "氛围 / 环境", src: "music/08-ambient.mp3" },
     { title: "伪爵士 · Pseudo Jazz", subtitle: "爵士 / 慵懒", src: "music/09-pseudo-jazz.mp3" },
     { title: "Boss Battle", subtitle: "战斗 / 电子", src: "music/10-boss-battle.mp3" },
-    { title: "王国城堡 · Kingdom Castle", subtitle: "管弦 / 场景", src: "music/11-kingdom-castle.mp3" }
+    { title: "王国城堡 · Kingdom Castle", subtitle: "管弦 / 场景", src: "music/11-kingdom-castle.mp3" },
+    { title: "Boss Battle 2", subtitle: "战斗 / 电子", src: "music/12-boss-battle-2.mp3" },
+    { title: "Boss Battle 3", subtitle: "战斗 / 电子", src: "music/13-boss-battle-3.mp3" },
+    { title: "Battle Music", subtitle: "战斗 / 电子", src: "music/14-battle-music.mp3" }
   ],
   projectLinks: {
     // 《缚语》是月费连载作品，爱发电没有单独商品页，指向桔桔的主页（可看到作品介绍与发电入口）
     fuyu: "https://afdian.com/a/orangeJuJu",
     // 《缚育宅姬》在爱发电电铺有独立售卖页
-    "fuyu-zhaiji": "https://afdian.com/item/c47675b2b7ba11f1b4f252540025c377"
+    "fuyu-zhaiji": "https://afdian.com/item/c47675b2b7ba11f1b4f252540025c377",
+    // 《缚驭》在爱发电电铺有独立售卖页
+    "fuyu-yu": "https://afdian.com/item/71422cd022b711f18cbc52540025c377"
   },
   contacts: [
     { name: "vvcat", qq: "1790993370" },
